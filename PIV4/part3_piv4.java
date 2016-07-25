@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 * Use regex to determine if the sequence is of type original.
 *
 * The original raw files are flagged with the "original" suffix.
-* This is used to differentiate between the post-trimmed photos
+* This is used to differentiate between the post-trimmed sequences
 * which were renamed to the original names.
 */
 public static boolean isOriginal(String sequenceName)
@@ -43,12 +43,6 @@ public static boolean isOriginal(String sequenceName)
 public static List<AnnotatedPluginDocument> performOperation(List<AnnotatedPluginDocument> documents, Options options,
 													  ProgressListener progressListener) throws DocumentOperationException, IOException 
 {
-	
-	// The following is used for naming purposes.
-	
-	Calendar theCurrentTime = new GregorianCalendar();
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd--HH-mm-ss");	
-	String currentTimeString = sdf.format(theCurrentTime.getTime());
 
 	
 	// This is where Geneious API goes to work.
@@ -97,7 +91,6 @@ public static List<AnnotatedPluginDocument> performOperation(List<AnnotatedPlugi
 		ArrayList<AnnotatedPluginDocument> conArray = new ArrayList<AnnotatedPluginDocument>();
 		ArrayList<AnnotatedPluginDocument> seqArray = new ArrayList<AnnotatedPluginDocument>();
 		ArrayList<AnnotatedPluginDocument> blastArray = new ArrayList<AnnotatedPluginDocument>();
-
 		ArrayList<AnnotatedPluginDocument> probableArray = new ArrayList<AnnotatedPluginDocument>();
 		
 		// Go through documents after the analysis is done and sort into their respective arrays
@@ -136,8 +129,7 @@ public static List<AnnotatedPluginDocument> performOperation(List<AnnotatedPlugi
 			else 
 			{
 				reportArray.add(documentsToExport[x]);
-			}
-			
+			}	
 		}
 		
 		// Convert the ArrayList to Array for the exporter method
@@ -145,53 +137,55 @@ public static List<AnnotatedPluginDocument> performOperation(List<AnnotatedPlugi
 		AnnotatedPluginDocument[] consensus = new AnnotatedPluginDocument[conArray.size()];
 		AnnotatedPluginDocument[] blast = new AnnotatedPluginDocument[blastArray.size()];
 		AnnotatedPluginDocument[] rawseq =  new AnnotatedPluginDocument[seqArray.size()];
-
 		AnnotatedPluginDocument[] prob = new AnnotatedPluginDocument[probableArray.size()];
 		
 		report = reportArray.toArray(report);
 		consensus = conArray.toArray(consensus);
 		blast = blastArray.toArray(blast);
 		rawseq = seqArray.toArray(rawseq);
-
 		prob = probableArray.toArray(prob);
 
-		String fileName = "FUSION_RUN-" + plate + ".csv";
-		
-		
+		// The following is used for naming purposes.
+		Calendar theCurrentTime = new GregorianCalendar();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd--HH-mm-ss");
+		String CURRENT_TIMESTAMP = sdf.format(theCurrentTime.getTime());
+
+		// UNIVERSAL SETTINGS -- MODIFY FOR EACH ASSAY 
+		String FILENAME = "PIV4_RUN-" + plate + ".csv";
+		String OUTPUT_DIRECTORY = "T:////Geneious/Fusion/Fusion QAS/geneious_output/";
 
 		// Citrix Testing
-		
-		PluginUtilities.exportDocuments(new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-rawseq-" + fileName), rawseq);
+		PluginUtilities.exportDocuments(new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-rawseq-" + FILENAME), rawseq);
 
 			try 
 			{
-				PluginUtilities.exportDocuments(new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-probableBLAST-" + fileName), prob);
+				PluginUtilities.exportDocuments(new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-probableBLAST-" + FILENAME), prob);
 			} 
 			catch (UnsupportedOperationException pe)
 			{
-				File probFile = new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-probableBLAST-" + fileName);
+				File probFile = new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-probableBLAST-" + FILENAME);
 				probFile.createNewFile();
 				JOptionPane.showMessageDialog(null, "No probable positives found. \n Click 'OK' to continue.", "NOTICE", JOptionPane.WARNING_MESSAGE);
 			} 
 
 			try
 			{
-				PluginUtilities.exportDocuments(new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-consensus-" + fileName), consensus);
+				PluginUtilities.exportDocuments(new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-consensus-" + FILENAME), consensus);
 			}
 			catch (UnsupportedOperationException ce)
 			{
-				File conFile = new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-consensus-" + fileName);
+				File conFile = new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-consensus-" + FILENAME);
 				conFile.createNewFile();
 				JOptionPane.showMessageDialog(null, "No consensus sequences were made. \n Click 'OK' to continue.", "NOTICE", JOptionPane.WARNING_MESSAGE);
 			}
 
 			try
 			{
-				PluginUtilities.exportDocuments(new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-blast-" + fileName), blast);
+				PluginUtilities.exportDocuments(new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-blast-" + FILENAME), blast);
 			}
 			catch (UnsupportedOperationException be)
 			{
-				File blastFile = new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-blast-" + fileName);
+				File blastFile = new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-blast-" + FILENAME);
 				blastFile.createNewFile();
 				JOptionPane.showMessageDialog(null, "No BLAST results were found. \n Click 'OK' to continue.", "NOTICE", JOptionPane.WARNING_MESSAGE);
 				
@@ -199,11 +193,11 @@ public static List<AnnotatedPluginDocument> performOperation(List<AnnotatedPlugi
 
 			try
 			{
-				PluginUtilities.exportDocuments(new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-summary-" + fileName), report);
+				PluginUtilities.exportDocuments(new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-summary-" + FILENAME), report);
 			}
 			catch (UnsupportedOperationException summ)
 			{
-				File sumFile = new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-summary-" + fileName);
+				File sumFile = new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-summary-" + FILENAME);
 				sumFile.createNewFile();
 				summ.printStackTrace();
 				

@@ -8,7 +8,7 @@ import java.util.regex.*;
 
 /**
 * 
-* 02/04/2016, David Bour
+* David Bour
 * 
 * Looks for sequences that passed trim AND has a partner that also passed
 * the trimming criteria. If one of the pair is missing, exclude both
