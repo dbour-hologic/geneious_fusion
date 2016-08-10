@@ -70,8 +70,8 @@ public static List<AnnotatedPluginDocument> performOperation(List<AnnotatedPlugi
 		// API that does the exporting, the directory should be changed as needed.
 		
 		// RegEx to parse Plate number out
-		String regPattern = ".*-(P\\d+)-\\D.*";
-		String plate = "PlateUnknown";
+		String regPattern = ".*-.*-(\\w+)-.*";
+		String plate = "IDUnknown";
 		
 		// Search through the document list for a file with "Plate##" in the name or else default to "PlateUnknown"
 		for (int count = 0; count < documentsToExport.length; count++)
