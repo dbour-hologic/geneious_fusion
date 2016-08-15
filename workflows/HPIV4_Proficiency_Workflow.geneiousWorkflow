@@ -1,9 +1,5 @@
 <geneiousWorkflows>
-<<<<<<< HEAD
-  <XMLSerialisableRootElement name="HPIV4_QAS_Workflow" geneiousVersion="8.1.2" uniqueId="c5fc8f01-d0a6-4069-a6a0-08ab0a37af71" revisionNumber="252" description="&lt;html&gt;HPIV4 Workflow&lt;br&gt;&#xA;Update: 08102016&#xA;Output Located in T:/Geneious/Fusion/Fusion QAS/geneious_output/&#xA;&lt;/html&gt;">
-=======
-  <XMLSerialisableRootElement name="HPIV4_QAS_Workflow" geneiousVersion="8.1.2" uniqueId="776920d1-698c-4c65-bdf7-34397f19be45" revisionNumber="244" description="&lt;html&gt;HPIV4 Workflow&lt;br&gt;&#xA;Output Located in T:/Geneious/Fusion/Fusion QAS/geneious_output/&#xA;&lt;/html&gt;">
->>>>>>> 51f2c90ab4cba91512e2d6c4f8caea7c04bbe51f
+  <XMLSerialisableRootElement name="HPIV4_Proficiency_Workflow" geneiousVersion="8.1.2" uniqueId="cc98080f-00a8-4c70-8503-00ff64b740ed" revisionNumber="254" description="&lt;html&gt;HPIV4 Workflow&lt;br&gt;&#xA;Update: 08102016&#xA;Output Located in T:/Geneious/Fusion/Fusion Clinical Trials/Proficiency/geneious_output/&#xA;&lt;/html&gt;">
     <workflowElement id="Operation_com.biomatters.plugins.alignment.TrimAnnotationGenerator" exposeNoOptions="true" exposeAllOptions="false" showButtonForExposedGroup="false" groupNameForExposedOptions="" type="com.biomatters.plugins.workflows.DocumentOperationWorkflowElement">
       <Options>
         <option name="action">annotate</option>
@@ -71,11 +67,7 @@
 
 /**
 * 
-<<<<<<< HEAD
 * David Bour
-=======
-* 02/04/2016, David Bour
->>>>>>> 51f2c90ab4cba91512e2d6c4f8caea7c04bbe51f
 * 
 * Looks for sequences that passed trim AND has a partner that also passed
 * the trimming criteria. If one of the pair is missing, exclude both
@@ -1144,11 +1136,7 @@ import javax.swing.JOptionPane;
 * Use regex to determine if the sequence is of type original.
 *
 * The original raw files are flagged with the "original" suffix.
-<<<<<<< HEAD
 * This is used to differentiate between the post-trimmed sequences
-=======
-* This is used to differentiate between the post-trimmed photos
->>>>>>> 51f2c90ab4cba91512e2d6c4f8caea7c04bbe51f
 * which were renamed to the original names.
 */
 public static boolean isOriginal(String sequenceName)
@@ -1172,15 +1160,6 @@ public static boolean isOriginal(String sequenceName)
 public static List&lt;AnnotatedPluginDocument&gt; performOperation(List&lt;AnnotatedPluginDocument&gt; documents, Options options,
 													  ProgressListener progressListener) throws DocumentOperationException, IOException 
 {
-<<<<<<< HEAD
-=======
-	
-	// The following is used for naming purposes.
-	
-	Calendar theCurrentTime = new GregorianCalendar();
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd--HH-mm-ss");	
-	String currentTimeString = sdf.format(theCurrentTime.getTime());
->>>>>>> 51f2c90ab4cba91512e2d6c4f8caea7c04bbe51f
 
 	
 	// This is where Geneious API goes to work.
@@ -1208,26 +1187,16 @@ public static List&lt;AnnotatedPluginDocument&gt; performOperation(List&lt;Annot
 		// API that does the exporting, the directory should be changed as needed.
 		
 		// RegEx to parse Plate number out
-<<<<<<< HEAD
 		String regPattern = ".*-.*-(\\w+)-.*";
 		String plate = "IDUnknown";
-=======
-		String regPattern = ".*-(P\\d+)-\\D.*";
-		String plate = "PlateUnknown";
->>>>>>> 51f2c90ab4cba91512e2d6c4f8caea7c04bbe51f
 		
 		// Search through the document list for a file with "Plate##" in the name or else default to "PlateUnknown"
 		for (int count = 0; count &lt; documentsToExport.length; count++)
 		{
 			String getDocName = documentsToExport[count].getName();
-<<<<<<< HEAD
 			String[] splitDocName = getDocName.split("_");
 			Pattern p = Pattern.compile(regPattern);
 			Matcher m = p.matcher(splitDocName[0]);
-=======
-			Pattern p = Pattern.compile(regPattern);
-			Matcher m = p.matcher(getDocName);
->>>>>>> 51f2c90ab4cba91512e2d6c4f8caea7c04bbe51f
 			if (m.matches())
 			{
 				plate = m.group(1); 
@@ -1240,10 +1209,6 @@ public static List&lt;AnnotatedPluginDocument&gt; performOperation(List&lt;Annot
 		ArrayList&lt;AnnotatedPluginDocument&gt; conArray = new ArrayList&lt;AnnotatedPluginDocument&gt;();
 		ArrayList&lt;AnnotatedPluginDocument&gt; seqArray = new ArrayList&lt;AnnotatedPluginDocument&gt;();
 		ArrayList&lt;AnnotatedPluginDocument&gt; blastArray = new ArrayList&lt;AnnotatedPluginDocument&gt;();
-<<<<<<< HEAD
-=======
-
->>>>>>> 51f2c90ab4cba91512e2d6c4f8caea7c04bbe51f
 		ArrayList&lt;AnnotatedPluginDocument&gt; probableArray = new ArrayList&lt;AnnotatedPluginDocument&gt;();
 		
 		// Go through documents after the analysis is done and sort into their respective arrays
@@ -1282,12 +1247,7 @@ public static List&lt;AnnotatedPluginDocument&gt; performOperation(List&lt;Annot
 			else 
 			{
 				reportArray.add(documentsToExport[x]);
-<<<<<<< HEAD
 			}	
-=======
-			}
-			
->>>>>>> 51f2c90ab4cba91512e2d6c4f8caea7c04bbe51f
 		}
 		
 		// Convert the ArrayList to Array for the exporter method
@@ -1295,17 +1255,12 @@ public static List&lt;AnnotatedPluginDocument&gt; performOperation(List&lt;Annot
 		AnnotatedPluginDocument[] consensus = new AnnotatedPluginDocument[conArray.size()];
 		AnnotatedPluginDocument[] blast = new AnnotatedPluginDocument[blastArray.size()];
 		AnnotatedPluginDocument[] rawseq =  new AnnotatedPluginDocument[seqArray.size()];
-<<<<<<< HEAD
-=======
-
->>>>>>> 51f2c90ab4cba91512e2d6c4f8caea7c04bbe51f
 		AnnotatedPluginDocument[] prob = new AnnotatedPluginDocument[probableArray.size()];
 		
 		report = reportArray.toArray(report);
 		consensus = conArray.toArray(consensus);
 		blast = blastArray.toArray(blast);
 		rawseq = seqArray.toArray(rawseq);
-<<<<<<< HEAD
 		prob = probableArray.toArray(prob);
 
 		// The following is used for naming purposes.
@@ -1315,7 +1270,7 @@ public static List&lt;AnnotatedPluginDocument&gt; performOperation(List&lt;Annot
 
 		// UNIVERSAL SETTINGS -- MODIFY FOR EACH ASSAY 
 		String FILENAME = "PIV4_RUN-" + plate + ".csv";
-		String OUTPUT_DIRECTORY = "T:////Geneious/Fusion/Fusion QAS/geneious_output/";
+		String OUTPUT_DIRECTORY = "T:////Geneious/Fusion/Fusion Clinical Trials/Proficiency/geneious_output/";
 
 		// Citrix Testing
 		PluginUtilities.exportDocuments(new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-rawseq-" + FILENAME), rawseq);
@@ -1327,64 +1282,28 @@ public static List&lt;AnnotatedPluginDocument&gt; performOperation(List&lt;Annot
 			catch (UnsupportedOperationException pe)
 			{
 				File probFile = new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-probableBLAST-" + FILENAME);
-=======
-
-		prob = probableArray.toArray(prob);
-
-		String fileName = "FUSION_RUN-" + plate + ".csv";
-		
-		
-
-		// Citrix Testing
-		
-		PluginUtilities.exportDocuments(new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-rawseq-" + fileName), rawseq);
-
-			try 
-			{
-				PluginUtilities.exportDocuments(new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-probableBLAST-" + fileName), prob);
-			} 
-			catch (UnsupportedOperationException pe)
-			{
-				File probFile = new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-probableBLAST-" + fileName);
->>>>>>> 51f2c90ab4cba91512e2d6c4f8caea7c04bbe51f
 				probFile.createNewFile();
 				JOptionPane.showMessageDialog(null, "No probable positives found. \n Click 'OK' to continue.", "NOTICE", JOptionPane.WARNING_MESSAGE);
 			} 
 
 			try
 			{
-<<<<<<< HEAD
 				PluginUtilities.exportDocuments(new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-consensus-" + FILENAME), consensus);
 			}
 			catch (UnsupportedOperationException ce)
 			{
 				File conFile = new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-consensus-" + FILENAME);
-=======
-				PluginUtilities.exportDocuments(new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-consensus-" + fileName), consensus);
-			}
-			catch (UnsupportedOperationException ce)
-			{
-				File conFile = new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-consensus-" + fileName);
->>>>>>> 51f2c90ab4cba91512e2d6c4f8caea7c04bbe51f
 				conFile.createNewFile();
 				JOptionPane.showMessageDialog(null, "No consensus sequences were made. \n Click 'OK' to continue.", "NOTICE", JOptionPane.WARNING_MESSAGE);
 			}
 
 			try
 			{
-<<<<<<< HEAD
 				PluginUtilities.exportDocuments(new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-blast-" + FILENAME), blast);
 			}
 			catch (UnsupportedOperationException be)
 			{
 				File blastFile = new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-blast-" + FILENAME);
-=======
-				PluginUtilities.exportDocuments(new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-blast-" + fileName), blast);
-			}
-			catch (UnsupportedOperationException be)
-			{
-				File blastFile = new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-blast-" + fileName);
->>>>>>> 51f2c90ab4cba91512e2d6c4f8caea7c04bbe51f
 				blastFile.createNewFile();
 				JOptionPane.showMessageDialog(null, "No BLAST results were found. \n Click 'OK' to continue.", "NOTICE", JOptionPane.WARNING_MESSAGE);
 				
@@ -1392,19 +1311,11 @@ public static List&lt;AnnotatedPluginDocument&gt; performOperation(List&lt;Annot
 
 			try
 			{
-<<<<<<< HEAD
 				PluginUtilities.exportDocuments(new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-summary-" + FILENAME), report);
 			}
 			catch (UnsupportedOperationException summ)
 			{
 				File sumFile = new File(OUTPUT_DIRECTORY + CURRENT_TIMESTAMP + "-summary-" + FILENAME);
-=======
-				PluginUtilities.exportDocuments(new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-summary-" + fileName), report);
-			}
-			catch (UnsupportedOperationException summ)
-			{
-				File sumFile = new File("T:////Geneious/Fusion/Fusion QAS/geneious_output/" + currentTimeString + "-summary-" + fileName);
->>>>>>> 51f2c90ab4cba91512e2d6c4f8caea7c04bbe51f
 				sumFile.createNewFile();
 				summ.printStackTrace();
 				
